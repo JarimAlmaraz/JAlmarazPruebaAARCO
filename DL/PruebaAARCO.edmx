@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PruebaAARCOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Descripcion">
+          <Key>
+            <PropertyRef Name="IdDescripcion" />
+          </Key>
+          <Property Name="IdDescripcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="IdModelo" Type="int" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Modelo">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Modelo" Type="varchar" MaxLength="50" />
+          <Property Name="IdSubmarca" Type="int" />
+        </EntityType>
+        <EntityType Name="Submarca">
+          <Key>
+            <PropertyRef Name="IdSubmarca" />
+          </Key>
+          <Property Name="IdSubmarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Submarca" Type="varchar" MaxLength="50" />
+          <Property Name="IdMarca" Type="int" />
+        </EntityType>
+        <Association Name="FK__Descripci__IdMod__2C3393D0">
+          <End Role="Modelo" Type="Self.Modelo" Multiplicity="0..1" />
+          <End Role="Descripcion" Type="Self.Descripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modelo">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="Descripcion">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Modelo__IdSubmar__29572725">
+          <End Role="Submarca" Type="Self.Submarca" Multiplicity="0..1" />
+          <End Role="Modelo" Type="Self.Modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Submarca">
+              <PropertyRef Name="IdSubmarca" />
+            </Principal>
+            <Dependent Role="Modelo">
+              <PropertyRef Name="IdSubmarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Submarca__IdMarc__267ABA7A">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Submarca" Type="Self.Submarca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Submarca">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DescripcionGetByIdModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdModelo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MarcaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ModeloGetByIdSubmarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSubmarca" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SubmarcaGetByIdMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PruebaAARCOModelStoreContainer">
+          <EntitySet Name="Descripcion" EntityType="Self.Descripcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modelo" EntityType="Self.Modelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Submarca" EntityType="Self.Submarca" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Descripci__IdMod__2C3393D0" Association="Self.FK__Descripci__IdMod__2C3393D0">
+            <End Role="Modelo" EntitySet="Modelo" />
+            <End Role="Descripcion" EntitySet="Descripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Modelo__IdSubmar__29572725" Association="Self.FK__Modelo__IdSubmar__29572725">
+            <End Role="Submarca" EntitySet="Submarca" />
+            <End Role="Modelo" EntitySet="Modelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Submarca__IdMarc__267ABA7A" Association="Self.FK__Submarca__IdMarc__267ABA7A">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Submarca" EntitySet="Submarca" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaAARCOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Descripcion">
+          <Key>
+            <PropertyRef Name="IdDescripcion" />
+          </Key>
+          <Property Name="IdDescripcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdModelo" Type="Int32" />
+          <NavigationProperty Name="Modelo" Relationship="Self.FK__Descripci__IdMod__2C3393D0" FromRole="Descripcion" ToRole="Modelo" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Submarca" Relationship="Self.FK__Submarca__IdMarc__267ABA7A" FromRole="Marca" ToRole="Submarca" />
+        </EntityType>
+        <EntityType Name="Modelo">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Modelo1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdSubmarca" Type="Int32" />
+          <NavigationProperty Name="Descripcion" Relationship="Self.FK__Descripci__IdMod__2C3393D0" FromRole="Modelo" ToRole="Descripcion" />
+          <NavigationProperty Name="Submarca" Relationship="Self.FK__Modelo__IdSubmar__29572725" FromRole="Modelo" ToRole="Submarca" />
+        </EntityType>
+        <EntityType Name="Submarca">
+          <Key>
+            <PropertyRef Name="IdSubmarca" />
+          </Key>
+          <Property Name="IdSubmarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Submarca1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdMarca" Type="Int32" />
+          <NavigationProperty Name="Marca" Relationship="Self.FK__Submarca__IdMarc__267ABA7A" FromRole="Submarca" ToRole="Marca" />
+          <NavigationProperty Name="Modelo" Relationship="Self.FK__Modelo__IdSubmar__29572725" FromRole="Submarca" ToRole="Modelo" />
+        </EntityType>
+        <Association Name="FK__Descripci__IdMod__2C3393D0">
+          <End Role="Modelo" Type="Self.Modelo" Multiplicity="0..1" />
+          <End Role="Descripcion" Type="Self.Descripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modelo">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="Descripcion">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Submarca__IdMarc__267ABA7A">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Submarca" Type="Self.Submarca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Submarca">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Modelo__IdSubmar__29572725">
+          <End Role="Submarca" Type="Self.Submarca" Multiplicity="0..1" />
+          <End Role="Modelo" Type="Self.Modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Submarca">
+              <PropertyRef Name="IdSubmarca" />
+            </Principal>
+            <Dependent Role="Modelo">
+              <PropertyRef Name="IdSubmarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PruebaAARCOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Descripcion" EntityType="Self.Descripcion" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" />
+          <EntitySet Name="Modelo" EntityType="Self.Modelo" />
+          <EntitySet Name="Submarca" EntityType="Self.Submarca" />
+          <AssociationSet Name="FK__Descripci__IdMod__2C3393D0" Association="Self.FK__Descripci__IdMod__2C3393D0">
+            <End Role="Modelo" EntitySet="Modelo" />
+            <End Role="Descripcion" EntitySet="Descripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Submarca__IdMarc__267ABA7A" Association="Self.FK__Submarca__IdMarc__267ABA7A">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Submarca" EntitySet="Submarca" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Modelo__IdSubmar__29572725" Association="Self.FK__Modelo__IdSubmar__29572725">
+            <End Role="Submarca" EntitySet="Submarca" />
+            <End Role="Modelo" EntitySet="Modelo" />
+          </AssociationSet>
+          <FunctionImport Name="DescripcionGetByIdModelo" ReturnType="Collection(PruebaAARCOModel.DescripcionGetByIdModelo_Result)">
+            <Parameter Name="IdModelo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MarcaGetAll" ReturnType="Collection(PruebaAARCOModel.MarcaGetAll_Result)" />
+          <FunctionImport Name="ModeloGetByIdSubmarca" ReturnType="Collection(PruebaAARCOModel.ModeloGetByIdSubmarca_Result)">
+            <Parameter Name="IdSubmarca" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SubmarcaGetByIdMarca" ReturnType="Collection(PruebaAARCOModel.SubmarcaGetByIdMarca_Result)">
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="DescripcionGetByIdModelo_Result">
+          <Property Type="Int32" Name="IdDescripcion" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdModelo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MarcaGetAll_Result">
+          <Property Type="Int32" Name="IdMarca" Nullable="false" />
+          <Property Type="String" Name="Marca" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ModeloGetByIdSubmarca_Result">
+          <Property Type="Int32" Name="IdModelo" Nullable="false" />
+          <Property Type="String" Name="Modelo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdSubmarca" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SubmarcaGetByIdMarca_Result">
+          <Property Type="Int32" Name="IdSubmarca" Nullable="false" />
+          <Property Type="String" Name="Submarca" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdMarca" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaAARCOModelStoreContainer" CdmEntityContainer="PruebaAARCOEntities">
+          <EntitySetMapping Name="Descripcion">
+            <EntityTypeMapping TypeName="PruebaAARCOModel.Descripcion">
+              <MappingFragment StoreEntitySet="Descripcion">
+                <ScalarProperty Name="IdDescripcion" ColumnName="IdDescripcion" />
+                <ScalarProperty Name="Descripcion1" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marca">
+            <EntityTypeMapping TypeName="PruebaAARCOModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Marca1" ColumnName="Marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modelo">
+            <EntityTypeMapping TypeName="PruebaAARCOModel.Modelo">
+              <MappingFragment StoreEntitySet="Modelo">
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="Modelo1" ColumnName="Modelo" />
+                <ScalarProperty Name="IdSubmarca" ColumnName="IdSubmarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Submarca">
+            <EntityTypeMapping TypeName="PruebaAARCOModel.Submarca">
+              <MappingFragment StoreEntitySet="Submarca">
+                <ScalarProperty Name="IdSubmarca" ColumnName="IdSubmarca" />
+                <ScalarProperty Name="Submarca1" ColumnName="Submarca" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DescripcionGetByIdModelo" FunctionName="PruebaAARCOModel.Store.DescripcionGetByIdModelo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaAARCOModel.DescripcionGetByIdModelo_Result">
+                <ScalarProperty Name="IdDescripcion" ColumnName="IdDescripcion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MarcaGetAll" FunctionName="PruebaAARCOModel.Store.MarcaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaAARCOModel.MarcaGetAll_Result">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ModeloGetByIdSubmarca" FunctionName="PruebaAARCOModel.Store.ModeloGetByIdSubmarca">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaAARCOModel.ModeloGetByIdSubmarca_Result">
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="IdSubmarca" ColumnName="IdSubmarca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SubmarcaGetByIdMarca" FunctionName="PruebaAARCOModel.Store.SubmarcaGetByIdMarca">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaAARCOModel.SubmarcaGetByIdMarca_Result">
+                <ScalarProperty Name="IdSubmarca" ColumnName="IdSubmarca" />
+                <ScalarProperty Name="Submarca" ColumnName="Submarca" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
